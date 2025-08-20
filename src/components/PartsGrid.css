@@ -1,0 +1,49 @@
+.parts-grid-section {
+  margin: 2rem auto;
+  max-width: 900px;
+  text-align: center;
+}
+
+.parts-grid-section h2 {
+  margin-bottom: 2rem;
+  color: #0c1424;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.parts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.part-card {
+  background: #d4d7dd;
+  border: 2px solid rgb(12,20,36);
+  border-radius: 1rem;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: rgb(12,20,36);
+  box-shadow: 0 2px 8px rgba(12,20,36,0.06);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.part-card:hover {
+  color: #0c1424;
+  background-color: white;
+  border-color: #0c1424;
+  box-shadow: 0 4px 16px rgba(12,20,36,0.12);
+  transform: translateY(-4px) scale(1.03);
+}
+
+.part-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.5rem;
+  object-fit: contain;
+}
