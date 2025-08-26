@@ -12,6 +12,9 @@ import PSU from "./pages/psu";
 import Monitor from "./pages/monitor";
 import Keyboard from "./pages/keyboard";
 import Case from "./pages/case";
+import Editor from "./menu/editorschoice";
+import AskAI from "./menu/askai";
+import Builder from "./menu/pcbuilder";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +58,18 @@ const router = createBrowserRouter([
     path: "/Case",
     element: <Case />,
   },
+  {
+    path: "/editors",
+    element: <Editor/>
+  },
+  {
+    path: "/askai",
+    element: <AskAI/>
+  },
+  {
+    path: "/builder",
+    element: <Builder/>
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(
