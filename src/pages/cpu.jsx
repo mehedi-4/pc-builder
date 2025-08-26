@@ -67,15 +67,10 @@ function CPU() {
     });
   };
 
-  // Filtering logic
   const filteredCpus = cpus.filter((cpu) => {
-    // Cores filter
     if (filters.cores.length && !filters.cores.includes(cpu.cores)) return false;
-    // Brand filter
     if (filters.brand.length && !filters.brand.includes(cpu.brand)) return false;
-    // Socket filter
     if (filters.socket.length && !filters.socket.includes(cpu.socket)) return false;
-    // Price filter
     if (filters.price) {
       const price = cpu.price;
       if (filters.price === "10-20" && !(price >= 10000 && price <= 20000)) return false;
@@ -172,7 +167,7 @@ function CPU() {
           </div>
           <div className="cpu-container">
             {sortedCpus.map((cpu) => (
-              <div key={cpu.id} className="cpu-card">
+              <div key={cpu.productid} className="cpu-card">
                 <img src={`http://localhost:3000/images/by-id/${cpu.productid}`} alt={cpu.name} />
                 <h3>{cpu.name}</h3>
                 <p>Socket: {cpu.socket}</p>
