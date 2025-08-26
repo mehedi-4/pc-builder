@@ -1,0 +1,53 @@
+/* src/Header.css */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 32px;
+  background: linear-gradient(90deg, rgb(12,20,36) 60%, #1a233a 100%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.header-left ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header-left a {
+  text-decoration: none;
+  color: #fffdfd;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.header-left a:hover {
+  color: #007bff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  vertical-align: middle;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.site-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-left: 6px;
+  letter-spacing: 1px;
+}

@@ -1,15 +1,26 @@
-import gamingIcon from '../assets/gaming-icon-design-vector.png'
+import siteIcon from '../assets/cpu.png';
+import React from 'react';
+import './Header.css'; 
+import { Link } from "react-router-dom";
 
-const Header = () => (
-  <header className="app-header">
-    <div className="header-content">
-      <img src={gamingIcon} alt="Gaming Icon" className="header-icon" />
-      <div>
-        <h1>PC Build Guide</h1>
-        {/* <p>Build your dream PC with ease</p> */}
-      </div>
-    </div>
-  </header>
-)
+const Header = () => {
+  return (
+    <header className="header">
+      <nav className="header-left">
+        <ul>
+          <li><a href="#askai">Ask AI</a></li>
+          <li><a href="#editors-choice">Editor's Choice</a></li>
+          <li><a href="#Builder">PC Builder</a></li>
+        </ul>
+      </nav>
+      <Link to='/'>
+        <div className="header-right">
+        <img src={siteIcon} alt="Site Icon" className="site-icon" />
+        <span className="site-name">PC Build Guide</span>
+      </div>      
+      </Link>
+    </header>
+  );
+};
 
-export default Header
+export default Header;

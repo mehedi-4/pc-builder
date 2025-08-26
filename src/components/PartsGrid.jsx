@@ -7,7 +7,7 @@ import psuIcon from "../assets/psu.png";
 import caseIcon from "../assets/case.png";
 import monitorIcon from "../assets/monitor.png";
 import keyboardIcon from "../assets/keyboard.png";
-import etcIcon from "../assets/GPU.png";
+import GPU from "../assets/GPU.png";
 import { Link } from "react-router-dom";
 
 const parts = [
@@ -15,7 +15,7 @@ const parts = [
   { name: "Motherboard", icon: motherboardIcon },
   { name: "Ram", icon: ramIcon },
   { name: "SSD", icon: ssdIcon },
-  { name: "GPU", icon: etcIcon },
+  { name: "GPU", icon: GPU },
   { name: "PSU", icon: psuIcon },
   { name: "Case", icon: caseIcon },
   { name: "Monitor", icon: monitorIcon },
