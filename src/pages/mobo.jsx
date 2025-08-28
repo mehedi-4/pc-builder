@@ -56,8 +56,8 @@ function Motherboard() {
     setSortOrder(order);
   };
   
-    const handleLearnMore = (cpu) => {
-    setSelectedItem(cpu);
+    const handleLearnMore = (mobo) => {
+    setSelectedItem(mobo);
   };
 
   const handleClosePopup = () => {
@@ -167,7 +167,7 @@ function Motherboard() {
                 <p>Chipset: {["AM4", "AM5"].includes(item.socket) ? "AMD" : "Intel"}</p>
                 <p>Socket: {item.socket}</p>
                 <p>Supported CPU: {item.supportedcpu}</p>
-                <p className="price-of-product">Price: <span className="cpu-price">৳{item.price}</span></p>
+                <p className="price-of-product">Price: <span className="item-price">৳{item.price}</span></p>
                 
                 <button className="add-to-builder-btn">Add to Builder</button>
                 <button className="learn-more-btn" onClick={() => handleLearnMore(item)}>Learn More</button>
@@ -182,7 +182,7 @@ function Motherboard() {
           <div className="item-popup" onClick={e => e.stopPropagation()}>
             <button className="close-popup-btn" onClick={handleClosePopup}>×</button>
             <div className="item-popup-content">
-              <img src={`http://localhost:3000/images/by-id/${selectedItem.productid}`} alt={selectedItem.name} className="cpu-popup-img" />
+              <img src={`http://localhost:3000/images/by-id/${selectedItem.productid}`} alt={selectedItem.name} className="item-popup-img" />
               <div className="item-popup-info">
                 <h3>{selectedItem.name}</h3>
                 <p>Brand: {selectedItem.brand}</p>
@@ -191,7 +191,7 @@ function Motherboard() {
                 <p>Ram Slot: {selectedItem.ramslot} {selectedItem.ramtype}</p>
                 <p>Supported CPU: {selectedItem.supportedcpu}</p>
                 <p>PCIe: {selectedItem.pcie}.0</p>
-                <p className="price-of-product">Price: <span className="cpu-price">৳{selectedItem.price}</span></p>
+                <p className="price-of-product">Price: <span className="item-price">৳{selectedItem.price}</span></p>
               </div>
             </div>
           </div>
