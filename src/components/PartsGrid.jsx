@@ -18,8 +18,8 @@ const parts = [
   { name: "GPU", icon: GPU },
   { name: "PSU", icon: psuIcon },
   { name: "Case", icon: caseIcon },
-  { name: "Monitor", icon: monitorIcon },
-  { name: "Keyboard-Mouse", icon: keyboardIcon },
+  // { name: "Monitor", icon: monitorIcon },
+  // { name: "Keyboard-Mouse", icon: keyboardIcon },
 ];
 
 const PartsGrid = () => (

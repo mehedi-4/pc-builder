@@ -12,6 +12,7 @@ function Ram() {
     price: "",
     type: [],
     capacity: [],
+    
   });
 
   const brandOptions = ["Corsair", "Kingston", "ADATA", "TeamGroup", "G.Skill", "Patriot"];
@@ -77,7 +78,7 @@ function Ram() {
   return (
     <>
       <Header />
-      <h2 className="item-title">RAM List</h2>
+      <h2 className="item-title">Ram List</h2>
       <div className="item-main-layout">
         <aside className="item-filter-section">
           <h4>Filter</h4>

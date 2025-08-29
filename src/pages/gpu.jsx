@@ -11,9 +11,13 @@ function GPU() {
     brand: [],
     price: "",
     socket: [],
+    vram: [],
   });
 
   const brandOptions = ["MSI", "Gigabyte", "PowerColor", "Asus", "XFX"];
+  const vramOptions = ["4GB", "6GB", "8GB", "10GB", "12GB", "16GB", "20GB", "24GB"];
+
+
   const priceOptions = [
     { label: "৳20,000 - ৳40,000", value: "10-20" },
     { label: "৳40,000 - ৳80,000", value: "20-30" },
@@ -23,7 +27,7 @@ function GPU() {
 
   const handleFilterChange = (type, value) => {
     setFilters((prev) => {
-      if (type === "brand") {
+      if (type === "brand" || type === "vram") {
         const arr = prev[type].includes(value)
           ? prev[type].filter((v) => v !== value)
           : [...prev[type], value];
@@ -51,6 +55,8 @@ function GPU() {
   const filteredItems = items.filter((item) => {
     if (filters.brand.length && !filters.brand.includes(item.brand))
       return false;
+    if (filters.vram.length && !filters.vram.includes(item.vram)) return false;
+
     if (filters.price) {
       const price = item.price;
       if (filters.price === "01-10" && !(price >= 80000 && price <= 120000))
@@ -123,6 +129,21 @@ function GPU() {
                   onChange={() => handleFilterChange("price", opt.value)}
                 />
                 {opt.label}
+              </label>
+            ))}
+          </div>
+
+          {/* Capacity Filter */}
+          <div className="filter-group">
+            <span className="filter-label">VRAM</span>
+            {vramOptions.map((vram) => (
+              <label key={vram} className="filter-checkbox">
+                <input
+                  type="checkbox"
+                  checked={filters.vram.includes(vram)}
+                  onChange={() => handleFilterChange("vram", vram)}
+                />
+                {vram}
               </label>
             ))}
           </div>

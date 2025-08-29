@@ -90,7 +90,7 @@ function Motherboard() {
   return (
     <>
       <Header />
-      <h2 className="item-title">Item List</h2>
+      <h2 className="item-title">Motherboard List</h2>
       <div className="item-main-layout">
         <aside className="item-filter-section">
           <h4>Filter</h4>
