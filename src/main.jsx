@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import Home from "./Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+
 import CPU from "./pages/cpu";
 import Motherboard from "./pages/mobo";
 import Ram from "./pages/ram";
