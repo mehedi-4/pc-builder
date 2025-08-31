@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import Home from "./Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BuilderProvider } from "./BuilderContext.jsx";
 
 
 import CPU from "./pages/cpu";
@@ -76,6 +77,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <BuilderProvider>
+      <RouterProvider router={router} />
+    </BuilderProvider>
   </StrictMode>
 );

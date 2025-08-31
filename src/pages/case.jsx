@@ -2,7 +2,13 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./mobo.css";
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useBuilder, BuilderProvider } from "../BuilderContext.jsx";
+
 function Case() {
+    const navigate = useNavigate();
+  
+  const { addToBuilder, removeFromBuilder } = useBuilder();
   const [items, setItems] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
@@ -145,7 +151,13 @@ function Case() {
                   Price: <span className="item-price">৳{item.price}</span>
                 </p>
 
-                <button className="add-to-builder-btn">Add to Builder</button>
+                <button className="add-to-builder-btn"
+                onClick={() => {
+                    removeFromBuilder("case");
+                    addToBuilder("case", item);
+                    navigate("/builder");
+                  }}
+                >Add to Builder</button>
                 <button
                   className="learn-more-btn"
                   onClick={() => handleLearnMore(item)}
@@ -161,7 +173,9 @@ function Case() {
       {selectedItem && (
         <div className="item-popup-overlay" onClick={handleClosePopup}>
           <div className="item-popup" onClick={(e) => e.stopPropagation()}>
-            <button className="close-popup-btn" onClick={handleClosePopup}>×</button>
+            <button className="close-popup-btn" onClick={handleClosePopup}>
+              ×
+            </button>
             <div className="item-popup-content">
               <img
                 src={`http://localhost:3000/images/by-id/${selectedItem.productid}`}
@@ -176,7 +190,8 @@ function Case() {
                 <p>Features: {selectedItem.features}</p>
                 <p>GPU Clearance: {selectedItem.gpu_clearance}</p>
                 <p className="price-of-product">
-                  Price: <span className="item-price">৳{selectedItem.price}</span>
+                  Price:{" "}
+                  <span className="item-price">৳{selectedItem.price}</span>
                 </p>
               </div>
             </div>

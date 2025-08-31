@@ -18,7 +18,7 @@
 }
 
 .part-card {
-  background: #d4d7dd;
+  background: #ffffff;
   border: 2px solid rgb(12,20,36);
   border-radius: 1rem;
   height: 120px;
@@ -35,7 +35,7 @@
 
 .part-card:hover {
   color: #0c1424;
-  background-color: white;
+  background-color: rgb(255, 245, 245);
   border-color: #0c1424;
   box-shadow: 0 4px 16px rgba(12,20,36,0.12);
   transform: translateY(-4px) scale(1.03);

@@ -2,8 +2,12 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./mobo.css";
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {useBuilder, BuilderProvider } from "../BuilderContext.jsx";
 
 function Ram() {
+    const { addToBuilder, removeFromBuilder } = useBuilder();
+  
   const [items, setItems] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);

@@ -2,8 +2,12 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./mobo.css";
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useBuilder, BuilderProvider } from "../BuilderContext.jsx";
 
 function SSD() {
+  const { addToBuilder, removeFromBuilder } = useBuilder();
+
   const [items, setItems] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
@@ -33,7 +37,6 @@ function SSD() {
     };
     fetchItems();
   }, []);
-
 
   const handleFilterChange = (type, value) => {
     setFilters((prev) => {
@@ -76,6 +79,7 @@ function SSD() {
     }
     return 0;
   });
+  const navigate = useNavigate();
 
   return (
     <>
@@ -166,7 +170,16 @@ function SSD() {
                   Price: <span className="item-price">৳{item.price}</span>
                 </p>
 
-                <button className="add-to-builder-btn">Add to Builder</button>
+                <button
+                  className="add-to-builder-btn"
+                  onClick={() => {
+                    removeFromBuilder("ssd");
+                    addToBuilder("ssd", item);
+                    navigate("/builder");
+                  }}
+                >
+                  Add to Builder
+                </button>
                 <button
                   className="learn-more-btn"
                   onClick={() => handleLearnMore(item)}

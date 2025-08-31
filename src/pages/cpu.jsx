@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { BuilderProvider } from "../BuilderContext.jsx";
+import { useBuilder } from "../BuilderContext.jsx";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./cpu.css";
 
 function CPU() {
+  const { addToBuilder, removeFromBuilder } = useBuilder();
   const [cpus, setCpus] = useState([]);
   const [selectedCpu, setSelectedCpu] = useState(null);
   const [sortOrder, setSortOrder] = useState(""); // "asc" or "desc"
@@ -68,15 +72,22 @@ function CPU() {
   };
 
   const filteredCpus = cpus.filter((cpu) => {
-    if (filters.cores.length && !filters.cores.includes(cpu.cores)) return false;
-    if (filters.brand.length && !filters.brand.includes(cpu.brand)) return false;
-    if (filters.socket.length && !filters.socket.includes(cpu.socket)) return false;
+    if (filters.cores.length && !filters.cores.includes(cpu.cores))
+      return false;
+    if (filters.brand.length && !filters.brand.includes(cpu.brand))
+      return false;
+    if (filters.socket.length && !filters.socket.includes(cpu.socket))
+      return false;
     if (filters.price) {
       const price = cpu.price;
-      if (filters.price === "10-20" && !(price >= 10000 && price <= 20000)) return false;
-      if (filters.price === "20-40" && !(price > 20000 && price <= 40000)) return false;
-      if (filters.price === "40-60" && !(price > 40000 && price <= 60000)) return false;
-      if (filters.price === "60-100" && !(price > 60000 && price <= 100000)) return false;
+      if (filters.price === "10-20" && !(price >= 10000 && price <= 20000))
+        return false;
+      if (filters.price === "20-40" && !(price > 20000 && price <= 40000))
+        return false;
+      if (filters.price === "40-60" && !(price > 40000 && price <= 60000))
+        return false;
+      if (filters.price === "60-100" && !(price > 60000 && price <= 100000))
+        return false;
     }
     return true;
   });
@@ -153,7 +164,9 @@ function CPU() {
         </aside>
         <main className="cpu-list-section">
           <div className="sort-dropdown">
-            <label htmlFor="sortOrder" className="sort-label">Sort by:</label>
+            <label htmlFor="sortOrder" className="sort-label">
+              Sort by:
+            </label>
             <select
               id="sortOrder"
               value={sortOrder}
@@ -168,14 +181,34 @@ function CPU() {
           <div className="cpu-container">
             {sortedCpus.map((cpu) => (
               <div key={cpu.productid} className="cpu-card">
-                <img src={`http://localhost:3000/images/by-id/${cpu.productid}`} alt={cpu.name} />
+                <img
+                  src={`http://localhost:3000/images/by-id/${cpu.productid}`}
+                  alt={cpu.name}
+                />
                 <h3>{cpu.name}</h3>
                 <p>Socket: {cpu.socket}</p>
                 <p>Cores: {cpu.cores}</p>
                 <p>Threads: {cpu.threads}</p>
-                <p className="price-of-product">Price: <span className="cpu-price">৳{cpu.price}</span></p>
-                <button className="add-to-builder-btn">Add to Builder</button>
-                <button className="learn-more-btn" onClick={() => handleLearnMore(cpu)}>Learn More</button>
+                <p className="price-of-product">
+                  Price: <span className="cpu-price">৳{cpu.price}</span>
+                </p>
+                <Link to={'/builder'}><button
+                  className="add-to-builder-btn"
+                  onClick={() => {
+                    removeFromBuilder("cpu");
+                    removeFromBuilder("ram");
+                    removeFromBuilder("ram");
+                    addToBuilder("cpu", cpu);
+                  }}
+                >
+                  Add to Builder
+                </button></Link>
+                <button
+                  className="learn-more-btn"
+                  onClick={() => handleLearnMore(cpu)}
+                >
+                  Learn More
+                </button>
               </div>
             ))}
           </div>
@@ -183,10 +216,16 @@ function CPU() {
       </div>
       {selectedCpu && (
         <div className="cpu-popup-overlay" onClick={handleClosePopup}>
-          <div className="cpu-popup" onClick={e => e.stopPropagation()}>
-            <button className="close-popup-btn" onClick={handleClosePopup}>×</button>
+          <div className="cpu-popup" onClick={(e) => e.stopPropagation()}>
+            <button className="close-popup-btn" onClick={handleClosePopup}>
+              ×
+            </button>
             <div className="cpu-popup-content">
-              <img src={`http://localhost:3000/images/by-id/${selectedCpu.productid}`} alt={selectedCpu.name} className="cpu-popup-img" />
+              <img
+                src={`http://localhost:3000/images/by-id/${selectedCpu.productid}`}
+                alt={selectedCpu.name}
+                className="cpu-popup-img"
+              />
               <div className="cpu-popup-info">
                 <h3>{selectedCpu.name}</h3>
                 <p>Brand: {selectedCpu.brand}</p>
@@ -195,7 +234,9 @@ function CPU() {
                 <p>Cores: {selectedCpu.cores}</p>
                 <p>Threads: {selectedCpu.threads}</p>
                 <p>Cache: {selectedCpu.cache}</p>
-                <p className="price-of-product">Price: <span className="cpu-price">৳{selectedCpu.price}</span></p>
+                <p className="price-of-product">
+                  Price: <span className="cpu-price">৳{selectedCpu.price}</span>
+                </p>
               </div>
             </div>
           </div>

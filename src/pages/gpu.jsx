@@ -2,8 +2,12 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./mobo.css";
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useBuilder, BuilderProvider } from "../BuilderContext.jsx";
 
 function GPU() {
+  const navigate = useNavigate();
+  const { addToBuilder, removeFromBuilder } = useBuilder();
   const [items, setItems] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
@@ -15,8 +19,16 @@ function GPU() {
   });
 
   const brandOptions = ["MSI", "Gigabyte", "PowerColor", "Asus", "XFX"];
-  const vramOptions = ["4GB", "6GB", "8GB", "10GB", "12GB", "16GB", "20GB", "24GB"];
-
+  const vramOptions = [
+    "4GB",
+    "6GB",
+    "8GB",
+    "10GB",
+    "12GB",
+    "16GB",
+    "20GB",
+    "24GB",
+  ];
 
   const priceOptions = [
     { label: "৳20,000 - ৳40,000", value: "10-20" },
@@ -179,7 +191,16 @@ function GPU() {
                 <p className="price-of-product">
                   Price: <span className="cpu-price">৳{item.price}</span>
                 </p>
-                <button className="add-to-builder-btn">Add to Builder</button>
+                <button
+                  className="add-to-builder-btn"
+                  onClick={() => {
+                    removeFromBuilder("gpu");
+                    addToBuilder("gpu", item);
+                    navigate("/builder");
+                  }}
+                >
+                  Add to Builder
+                </button>
                 <button
                   className="learn-more-btn"
                   onClick={() => handleLearnMore(item)}
@@ -207,7 +228,9 @@ function GPU() {
                 <h3>{selectedItem.name}</h3>
                 <p>Brand: {selectedItem.brand}</p>
                 <p>Brand: {selectedItem.brand}</p>
-                <p>VRAM: {selectedItem.vram} {selectedItem.memory_type} Memory</p>
+                <p>
+                  VRAM: {selectedItem.vram} {selectedItem.memory_type} Memory
+                </p>
                 <p>Boost Clock Speed: {selectedItem.boost_clock}</p>
                 <p>TDP: {selectedItem.tdp}</p>
                 <p>PCIe: {selectedItem.pcie_version}</p>
