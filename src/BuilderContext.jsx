@@ -5,7 +5,7 @@ const BuilderContext = createContext();
 export const BuilderProvider = ({ children }) => {
   const [builder, setBuilder] = useState({
     cpu: null,
-    motherboard: null,
+    mobo: null,
     ram: null,
     ssd: null,
     gpu: null,
@@ -24,7 +24,7 @@ export const BuilderProvider = ({ children }) => {
   const clearBuilder = () => {
     setBuilder({
       cpu: null,
-      motherboard: null,
+      mobo: null,
       ram: null,
       ssd: null,
       gpu: null,

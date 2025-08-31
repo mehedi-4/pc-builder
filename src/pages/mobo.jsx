@@ -2,12 +2,12 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./mobo.css";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useBuilder, BuilderProvider } from "../BuilderContext.jsx";
+import { useBuilder } from "../BuilderContext.jsx";
+import { Link } from "react-router-dom";
 
 function Motherboard() {
-    const { addToBuilder, removeFromBuilder } = useBuilder();
-  
+  const { addToBuilder, removeFromBuilder, builder } = useBuilder();
+
   const [items, setItems] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
@@ -16,6 +16,7 @@ function Motherboard() {
     price: "",
     socket: [],
   });
+
   const brandOptions = ["MSI", "Gigabyte", "AsRock", "Asus"];
   const socketOptions = ["AM4", "AM5", "LGA1700", "LGA1851"];
   const priceOptions = [
@@ -25,13 +26,12 @@ function Motherboard() {
     { label: "৳30,000 +", value: "30-100" },
   ];
 
+  // Fetch motherboards from API
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const response = await fetch("http://localhost:3000/api/mobo");
-        if (!response.ok) {
-          throw new Error("Not Ok");
-        }
+        if (!response.ok) throw new Error("Not Ok");
         const data = await response.json();
         setItems(data);
       } catch (err) {
@@ -41,9 +41,10 @@ function Motherboard() {
     fetchItems();
   }, []);
 
+  // Handle filter changes
   const handleFilterChange = (type, value) => {
     setFilters((prev) => {
-      if ( type === "brand" || type === "socket") {
+      if (type === "brand" || type === "socket") {
         const arr = prev[type].includes(value)
           ? prev[type].filter((v) => v !== value)
           : [...prev[type], value];
@@ -55,20 +56,12 @@ function Motherboard() {
       return prev;
     });
   };
-  
-  const handleSortChange = (order) => {
-    setSortOrder(order);
-  };
-  
-    const handleLearnMore = (mobo) => {
-    setSelectedItem(mobo);
-  };
 
-  const handleClosePopup = () => {
-    setSelectedItem(null);
-  };
+  const handleSortChange = (order) => setSortOrder(order);
+  const handleLearnMore = (mobo) => setSelectedItem(mobo);
+  const handleClosePopup = () => setSelectedItem(null);
 
-
+  // Filtered items based on selected filters
   const filteredItems = items.filter((item) => {
     if (filters.brand.length && !filters.brand.includes(item.brand)) return false;
     if (filters.socket.length && !filters.socket.includes(item.socket)) return false;
@@ -82,14 +75,17 @@ function Motherboard() {
     return true;
   });
 
+  // Sort filtered items
   const sortedItems = [...filteredItems].sort((a, b) => {
-    if (sortOrder === "asc") {
-      return a.price - b.price;
-    } else if (sortOrder === "desc") {
-      return b.price - a.price;
-    }
+    if (sortOrder === "asc") return a.price - b.price;
+    if (sortOrder === "desc") return b.price - a.price;
     return 0;
   });
+
+  // If CPU is selected in builder, only show compatible motherboards
+  const cpuFilteredItems = builder.cpu
+    ? sortedItems.filter((mobo) => mobo.socket === builder.cpu.socket)
+    : sortedItems;
 
   return (
     <>
@@ -145,9 +141,7 @@ function Motherboard() {
 
         <main className="list-section">
           <div className="sort-dropdown">
-            <label htmlFor="sortOrder" className="sort-label">
-              Sort by:
-            </label>
+            <label htmlFor="sortOrder" className="sort-label">Sort by:</label>
             <select
               id="sortOrder"
               value={sortOrder}
@@ -161,7 +155,7 @@ function Motherboard() {
           </div>
 
           <div className="list-container">
-            {sortedItems.map((item) => (
+            {cpuFilteredItems.map((item) => (
               <div className="item-card" key={item.productid}>
                 <img
                   src={`http://localhost:3000/images/by-id/${item.productid}`}
@@ -171,22 +165,37 @@ function Motherboard() {
                 <p>Chipset: {["AM4", "AM5"].includes(item.socket) ? "AMD" : "Intel"}</p>
                 <p>Socket: {item.socket}</p>
                 <p>Supported CPU: {item.supportedcpu}</p>
-                <p className="price-of-product">Price: <span className="item-price">৳{item.price}</span></p>
-                
-                <button className="add-to-builder-btn">Add to Builder</button>
+                <p className="price-of-product">
+                  Price: <span className="item-price">৳{item.price}</span>
+                </p>
+                <Link to={'/builder'}><button
+                  className="add-to-builder-btn"
+                  onClick={() => {
+                    removeFromBuilder("mobo");
+                    removeFromBuilder("ram");
+                    addToBuilder("mobo", item);
+                    console.log(builder.mobo);
+                  }}
+                >
+                  Add to Builder
+                </button></Link>
                 <button className="learn-more-btn" onClick={() => handleLearnMore(item)}>Learn More</button>
-
               </div>
             ))}
           </div>
         </main>
       </div>
+
       {selectedItem && (
         <div className="item-popup-overlay" onClick={handleClosePopup}>
-          <div className="item-popup" onClick={e => e.stopPropagation()}>
+          <div className="item-popup" onClick={(e) => e.stopPropagation()}>
             <button className="close-popup-btn" onClick={handleClosePopup}>×</button>
             <div className="item-popup-content">
-              <img src={`http://localhost:3000/images/by-id/${selectedItem.productid}`} alt={selectedItem.name} className="item-popup-img" />
+              <img
+                src={`http://localhost:3000/images/by-id/${selectedItem.productid}`}
+                alt={selectedItem.name}
+                className="item-popup-img"
+              />
               <div className="item-popup-info">
                 <h3>{selectedItem.name}</h3>
                 <p>Brand: {selectedItem.brand}</p>
@@ -195,7 +204,9 @@ function Motherboard() {
                 <p>Ram Slot: {selectedItem.ramslot} {selectedItem.ramtype}</p>
                 <p>Supported CPU: {selectedItem.supportedcpu}</p>
                 <p>PCIe: {selectedItem.pcie}.0</p>
-                <p className="price-of-product">Price: <span className="item-price">৳{selectedItem.price}</span></p>
+                <p className="price-of-product">
+                  Price: <span className="item-price">৳{selectedItem.price}</span>
+                </p>
               </div>
             </div>
           </div>
@@ -206,4 +217,5 @@ function Motherboard() {
     </>
   );
 }
+
 export default Motherboard;

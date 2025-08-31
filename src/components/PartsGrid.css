@@ -17,6 +17,12 @@
   gap: 2rem;
 }
 
+.parts-grid a {
+  text-decoration: none;  /* remove underline */
+  color: inherit;         /* keep same text color as parent */
+}
+
+
 .part-card {
   background: #ffffff;
   border: 2px solid rgb(12,20,36);
@@ -46,4 +52,24 @@
   height: 40px;
   margin-bottom: 0.5rem;
   object-fit: contain;
+}
+
+/* 🔥 Fade + Stagger Animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.stagger {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

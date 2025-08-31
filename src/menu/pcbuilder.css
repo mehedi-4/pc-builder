@@ -4,23 +4,19 @@
   min-height: 100vh;
   padding: 20px;
 }
-.super-mega-container{
-
-}
+.super-mega-container { }
 
 .builder-container {
-  width: 50%; /* 75% of screen width */
+  width: 50%;
   background: #fff;
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  /* Align left */
   margin-left: 25%;
   margin-right: 25%;
   margin-top: 5%;
   margin-bottom: 5%;
-
 }
 
 .title-container {
@@ -36,16 +32,15 @@
   color: #082d63;
 }
 
-/* Updated total-price styling */
 .total-price {
   font-size: 20px;
   font-weight: bold;
   color: #fff;
   background: linear-gradient(135deg, #ff8432, #ff8017);
   padding: 8px 16px;
-  width: 10%;
+  width: 15%;
   text-align: center;
-  border-radius: 12px; /* slight rounded corners */
+  border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
@@ -87,9 +82,11 @@
   padding: 2px 6px;
   border-radius: 4px;
 }
+
 .component-info .comp-title {
   color: grey;
 }
+
 .component-info .name {
   font-size: 20px;
   margin-top: 4px;
@@ -121,4 +118,24 @@
 
 .select-button:hover {
   background: #063b96;
+}
+
+/* 🔥 Animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.stagger {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

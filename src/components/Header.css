@@ -1,4 +1,4 @@
-/* src/Header.css */
+/* src/Header.css
 
 .header {
   display: flex;
@@ -50,4 +50,68 @@
   color: #ffffff;
   margin-left: 6px;
   letter-spacing: 1px;
+} */
+
+
+.navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, rgb(12,20,36) 60%, #1a233a 100%);
+    padding: 15px 7%;
+    height: 80px;
 }
+.logo{
+    width: 50px;
+    cursor: pointer;
+}
+
+ul{
+    flex: 1;
+    list-style: nonde;
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+}
+
+ul li{
+    display: inline-block;
+    margin: 10px 20px;
+    font-size: 18px;
+    font-family: sans-serif;
+    cursor: pointer;
+    color: white;
+
+}
+
+.search-box{
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 4px 15px;
+    border-radius: 50px;
+    
+
+}
+.search-box input{
+    padding: 1px 2px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: #1a233a;
+    font-size: 18px;
+    max-width: 150px;
+}
+
+.search-box img {
+    height: 40px;
+    width: 40px;
+}
+
+.search-box ::placeholder{
+    color: #1a233a;
+}
+
+
+

@@ -19,13 +19,11 @@ function Case() {
   });
   const brandOptions = [
     "Corsair",
-    "Kingston",
-    "ADATA",
-    "TeamGroup",
-    "G.Skill",
-    "Patriot",
+    "Lian Li",
+    "NZXT",
+    "Cooler Master",
+    "Fractal Design",
   ];
-  const typeOptions = ["DDR4", "DDR5"];
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -87,7 +85,7 @@ function Case() {
         <aside className="item-filter-section">
           <h4>Filter</h4>
 
-          {/* type Filter */}
+          {/* type Filter
           <div className="filter-group">
             <span className="filter-label">Type</span>
             {typeOptions.map((type) => (
@@ -100,7 +98,7 @@ function Case() {
                 {type}
               </label>
             ))}
-          </div>
+          </div> */}
 
           {/* Brand Filter */}
           <div className="filter-group">

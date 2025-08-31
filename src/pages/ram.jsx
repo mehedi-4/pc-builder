@@ -3,11 +3,11 @@ import Footer from "../components/Footer";
 import "./mobo.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {useBuilder, BuilderProvider } from "../BuilderContext.jsx";
+import { useBuilder } from "../BuilderContext.jsx";
 
 function Ram() {
-    const { addToBuilder, removeFromBuilder } = useBuilder();
-  
+  const { addToBuilder, removeFromBuilder, builder } = useBuilder();
+
   const [items, setItems] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
@@ -16,10 +16,16 @@ function Ram() {
     price: "",
     type: [],
     capacity: [],
-    
   });
 
-  const brandOptions = ["Corsair", "Kingston", "ADATA", "TeamGroup", "G.Skill", "Patriot"];
+  const brandOptions = [
+    "Corsair",
+    "Kingston",
+    "ADATA",
+    "TeamGroup",
+    "G.Skill",
+    "Patriot",
+  ];
   const typeOptions = ["DDR4", "DDR5"];
   const capacityOptions = ["8GB", "16GB", "32GB", "64GB", "128GB"];
 
@@ -64,9 +70,11 @@ function Ram() {
   };
 
   const filteredItems = items.filter((item) => {
-    if (filters.brand.length && !filters.brand.includes(item.brand)) return false;
+    if (filters.brand.length && !filters.brand.includes(item.brand))
+      return false;
     if (filters.type.length && !filters.type.includes(item.type)) return false;
-    if (filters.capacity.length && !filters.capacity.includes(item.capacity)) return false;
+    if (filters.capacity.length && !filters.capacity.includes(item.capacity))
+      return false;
     return true;
   });
 
@@ -78,6 +86,10 @@ function Ram() {
     }
     return 0;
   });
+
+  const cpuFilteredItems = builder.mobo
+    ? sortedItems.filter((ram) => ram.type === builder.mobo.ramtype)
+    : sortedItems;
 
   return (
     <>
@@ -152,7 +164,7 @@ function Ram() {
           </div>
 
           <div className="list-container">
-            {sortedItems.map((item) => (
+            {cpuFilteredItems.map((item) => (
               <div className="item-card" key={item.productid}>
                 <img
                   src={`http://localhost:3000/images/by-id/${item.productid}`}
@@ -166,8 +178,21 @@ function Ram() {
                   Price: <span className="item-price">৳{item.price}</span>
                 </p>
 
-                <button className="add-to-builder-btn">Add to Builder</button>
-                <button className="learn-more-btn" onClick={() => handleLearnMore(item)}>
+                <Link to={"/builder"}>
+                  <button
+                    className="add-to-builder-btn"
+                    onClick={() => {
+                      removeFromBuilder("ram");
+                      addToBuilder("ram", item);
+                    }}
+                  >
+                    Add to Builder
+                  </button>
+                </Link>
+                <button
+                  className="learn-more-btn"
+                  onClick={() => handleLearnMore(item)}
+                >
                   Learn More
                 </button>
               </div>
@@ -180,7 +205,9 @@ function Ram() {
       {selectedItem && (
         <div className="item-popup-overlay" onClick={handleClosePopup}>
           <div className="item-popup" onClick={(e) => e.stopPropagation()}>
-            <button className="close-popup-btn" onClick={handleClosePopup}>×</button>
+            <button className="close-popup-btn" onClick={handleClosePopup}>
+              ×
+            </button>
             <div className="item-popup-content">
               <img
                 src={`http://localhost:3000/images/by-id/${selectedItem.productid}`}
@@ -195,7 +222,8 @@ function Ram() {
                 <p>Speed: {selectedItem.frequency}</p>
                 <p>CAS Latency: {selectedItem.caslatency}</p>
                 <p className="price-of-product">
-                  Price: <span className="item-price">৳{selectedItem.price}</span>
+                  Price:{" "}
+                  <span className="item-price">৳{selectedItem.price}</span>
                 </p>
               </div>
             </div>

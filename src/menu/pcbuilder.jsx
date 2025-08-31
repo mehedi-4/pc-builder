@@ -7,40 +7,44 @@ import ramIcon from "../assets/ram.png";
 import ssdIcon from "../assets/ssd.png";
 import psuIcon from "../assets/psu.png";
 import caseIcon from "../assets/case.png";
-import monitorIcon from "../assets/monitor.png";
-import keyboardIcon from "../assets/keyboard.png";
 import gpuIcon from "../assets/GPU.png";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useBuilder } from "../BuilderContext";
-import { GpuIcon } from "lucide-react";
 
 export default function Builder() {
   const { builder } = useBuilder();
   const [totalPrice, setTotalPrice] = useState(0);
 
-useEffect(() => {
-  let total = 0;
-  Object.values(builder).forEach((component) => {
-    if (component && component.price) total += parseInt(component.price, 10);
-  });
-  setTotalPrice(total);
-}, [builder]);
-
+  useEffect(() => {
+    let total = 0;
+    Object.values(builder).forEach((component) => {
+      if (component && component.price) total += parseInt(component.price, 10);
+    });
+    setTotalPrice(total);
+  }, [builder]);
 
   return (
     <>
       <Header />
       <div className="super-mega-container">
-        <div className="builder-container">
+        <div className="builder-container fade-in">
           <div className="title-container">
             <p className="title">Build Your own PC</p>
             <p className="total-price">৳{totalPrice}</p>
           </div>
+
           <div className="component-list">
             {/* CPU */}
-            <div className="component-card">
-              <img src={builder.cpu?`http://localhost:3000/images/by-id/${builder.cpu.productid}`:cpuIcon} alt="CPU Icon" />
+            <div className="component-card stagger" style={{ animationDelay: "0.1s" }}>
+              <img
+                src={
+                  builder.cpu
+                    ? `http://localhost:3000/images/by-id/${builder.cpu.productid}`
+                    : cpuIcon
+                }
+                alt="CPU Icon"
+              />
               <div className="component-info">
                 <p className="comp-title">
                   Processor <span className="required">Select First</span>
@@ -48,9 +52,7 @@ useEffect(() => {
                 <p className="name">{builder.cpu?.name || "Not selected"}</p>
               </div>
               <div className="component-action">
-                <p className="price">
-                  Price: ৳{builder.cpu?.price || 0}
-                </p>
+                <p className="price">Price: ৳{builder.cpu?.price || 0}</p>
                 <Link to="/cpu">
                   <button className="select-button">Choose</button>
                 </Link>
@@ -58,8 +60,15 @@ useEffect(() => {
             </div>
 
             {/* Motherboard */}
-            <div className="component-card">
-              <img src={builder.mobo?`http://localhost:3000/images/by-id/${builder.mobo.productid}`:motherboardIcon} alt="MOBO Icon" />
+            <div className="component-card stagger" style={{ animationDelay: "0.2s" }}>
+              <img
+                src={
+                  builder.mobo
+                    ? `http://localhost:3000/images/by-id/${builder.mobo.productid}`
+                    : motherboardIcon
+                }
+                alt="MOBO Icon"
+              />
               <div className="component-info">
                 <p className="comp-title">
                   Motherboard <span className="required">Select After CPU</span>
@@ -75,8 +84,15 @@ useEffect(() => {
             </div>
 
             {/* RAM */}
-            <div className="component-card">
-              <img src={builder.ram?`http://localhost:3000/images/by-id/${builder.ram.productid}`:ramIcon} alt="RAM Icon" />
+            <div className="component-card stagger" style={{ animationDelay: "0.3s" }}>
+              <img
+                src={
+                  builder.ram
+                    ? `http://localhost:3000/images/by-id/${builder.ram.productid}`
+                    : ramIcon
+                }
+                alt="RAM Icon"
+              />
               <div className="component-info">
                 <p className="comp-title">
                   RAM <span className="required">Select After CPU</span>
@@ -92,8 +108,15 @@ useEffect(() => {
             </div>
 
             {/* SSD */}
-            <div className="component-card">
-              <img src={builder.ssd?`http://localhost:3000/images/by-id/${builder.ssd.productid}`:ssdIcon} alt="SSD Icon" />
+            <div className="component-card stagger" style={{ animationDelay: "0.4s" }}>
+              <img
+                src={
+                  builder.ssd
+                    ? `http://localhost:3000/images/by-id/${builder.ssd.productid}`
+                    : ssdIcon
+                }
+                alt="SSD Icon"
+              />
               <div className="component-info">
                 <p className="comp-title">Storage</p>
                 <p className="name">{builder.ssd?.name || "Not selected"}</p>
@@ -106,8 +129,16 @@ useEffect(() => {
               </div>
             </div>
 
-            <div className="component-card">
-              <img src={builder.gpu?`http://localhost:3000/images/by-id/${builder.gpu.productid}`:gpuIcon} alt="PSU Icon" />
+            {/* GPU */}
+            <div className="component-card stagger" style={{ animationDelay: "0.5s" }}>
+              <img
+                src={
+                  builder.gpu
+                    ? `http://localhost:3000/images/by-id/${builder.gpu.productid}`
+                    : gpuIcon
+                }
+                alt="GPU Icon"
+              />
               <div className="component-info">
                 <p className="comp-title">Graphics Card</p>
                 <p className="name">{builder.gpu?.name || "Not selected"}</p>
@@ -120,8 +151,16 @@ useEffect(() => {
               </div>
             </div>
 
-            <div className="component-card">
-              <img src={builder.psu?`http://localhost:3000/images/by-id/${builder.psu.productid}`:psuIcon} alt="PSU Icon" />
+            {/* PSU */}
+            <div className="component-card stagger" style={{ animationDelay: "0.6s" }}>
+              <img
+                src={
+                  builder.psu
+                    ? `http://localhost:3000/images/by-id/${builder.psu.productid}`
+                    : psuIcon
+                }
+                alt="PSU Icon"
+              />
               <div className="component-info">
                 <p className="comp-title">Power Supply</p>
                 <p className="name">{builder.psu?.name || "Not selected"}</p>
@@ -134,8 +173,16 @@ useEffect(() => {
               </div>
             </div>
 
-            <div className="component-card">
-              <img src={builder.case?`http://localhost:3000/images/by-id/${builder.case.productid}`:caseIcon} alt="CPU Icon" />
+            {/* Case */}
+            <div className="component-card stagger" style={{ animationDelay: "0.7s" }}>
+              <img
+                src={
+                  builder.case
+                    ? `http://localhost:3000/images/by-id/${builder.case.productid}`
+                    : caseIcon
+                }
+                alt="Case Icon"
+              />
               <div className="component-info">
                 <p className="comp-title">Casing</p>
                 <p className="name">{builder.case?.name || "Not selected"}</p>

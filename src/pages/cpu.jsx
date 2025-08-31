@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BuilderProvider } from "../BuilderContext.jsx";
 import { useBuilder } from "../BuilderContext.jsx";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -196,7 +195,7 @@ function CPU() {
                   className="add-to-builder-btn"
                   onClick={() => {
                     removeFromBuilder("cpu");
-                    removeFromBuilder("ram");
+                    removeFromBuilder("mobo");
                     removeFromBuilder("ram");
                     addToBuilder("cpu", cpu);
                   }}
