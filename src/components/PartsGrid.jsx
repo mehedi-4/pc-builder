@@ -28,12 +28,14 @@ const PartsGrid = () => (
             className="part-card stagger"
             style={{ animationDelay: `${index * 0.1 + 0.2}s` }}
           >
-            <img
-              src={part.icon}
-              alt={part.name + " icon"}
-              className="part-icon"
-            />
-            <span>{part.name}</span>
+            <div className="part-card-inner">
+              <img
+                src={part.icon}
+                alt={part.name + " icon"}
+                className="part-icon"
+              />
+              <span>{part.name}</span>
+            </div>
           </div>
         </Link>
       ))}

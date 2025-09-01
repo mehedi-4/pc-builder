@@ -112,6 +112,10 @@ ul li{
 .search-box ::placeholder{
     color: #1a233a;
 }
-
+.search_icon:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+  transition-duration: 0.5s;
+}
 
 

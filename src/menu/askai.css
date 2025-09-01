@@ -1,0 +1,185 @@
+/* General Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header is imported separately via Header.css */
+
+/* Main Chat Area */
+/* Main Chat Area */
+.chat-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontal centering */
+    justify-content: center; /* Vertical centering */
+    min-height: 80vh; /* Full viewport height */
+    padding: 20px;
+    background: linear-gradient(to bottom, #f5f5f5, #fff);
+}
+
+
+/* Prompt Form */
+.prompt-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.prompt-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center children horizontally */
+    width: 100%;
+    max-width: 600px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+
+.prompt-form textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: none;
+    margin-bottom: 20px;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+.prompt-form textarea:focus {
+    outline: none;
+    border-color: #ffbf00;
+    box-shadow: 0 0 5px rgba(255, 191, 0, 0.5);
+}
+
+/* Buttons */
+.prompt-form button,
+.loading-container button,
+.response-container button {
+    padding: 12px 25px;
+    background: #ffbf00;
+    border: none;
+    border-radius: 8px;
+    color: #1a233a;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    max-width: 150px;
+
+    transition: transform 0.3s, background 0.3s;
+}
+
+.prompt-form button:hover,
+.loading-container button:hover,
+.response-container button:hover {
+    transform: scale(1.05);
+    background: #e6ac00;
+}
+
+/* Loading Container */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-container p {
+    font-style: italic;
+    color: #ff4500;
+    margin-bottom: 20px;
+}
+
+/* Response Container */
+.response-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.response-container p.no-products {
+    color: #ff4500;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+/* Footer */
+.chat-footer {
+    text-align: center;
+    padding: 20px 10px;
+    background: #1a233a;
+    color: #ffffff;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.chat-footer .highlight {
+    color: #ffbf00;
+    font-weight: 700;
+}
+
+/* Holder Grid (Products) */
+.holder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.image-container {
+    width: 100%;
+    padding: 10px;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.product-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    color: #1a233a;
+}
+
+.product-price {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #ffbf00;
+    margin-top: 5px;
+}
+.component-names {
+    border: 2px solid #ccc;
+    max-width: 600px;
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* regular shadow */
+    border-radius: 8px;
+    margin: 20px auto; /* center horizontally if needed */
+}

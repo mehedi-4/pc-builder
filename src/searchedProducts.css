@@ -1,0 +1,13 @@
+.your_search {
+    margin-top: 10px;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.whole-search{
+    display: flex;
+    justify-content: center;
+}

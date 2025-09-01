@@ -18,6 +18,7 @@ import Case from "./pages/case";
 import Editor from "./menu/editorschoice";
 import AskAI from "./menu/askai";
 import Builder from "./menu/pcbuilder";
+import SearchedProducts from "./SearchedProducts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
   {
     path: "/builder",
     element: <Builder/>
+  },
+  {
+    path: "/searched_products",
+    element: <SearchedProducts/>
   }
 ]);
 
