@@ -1,28 +1,22 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
 import Header from "../components/Header";
-
 import "./askai.css";
 
 export default function AskAI() {
-  const navigate = useNavigate();
+  const [messages, setMessages] = useState([]); // chat history
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
-  const [promptEntered, setPromptEntered] = useState(false);
-  const [components, setComponents] = useState([]);
+  const chatEndRef = useRef(null);
 
   async function getResponse(e) {
     e.preventDefault();
-    setLoading(true);
-    setPromptEntered(true);
+    if (!prompt.trim()) return;
 
-    if (!prompt.trim()) {
-      setPrompt("");
-      setLoading(false);
-      setPromptEntered(false);
-      setComponents([]);
-      return;
-    }
+    // Add user message
+    const newMessages = [...messages, { role: "user", text: prompt }];
+    setMessages(newMessages);
+    setPrompt("");
+    setLoading(true);
 
     try {
       const res = await fetch("http://localhost:3000/chat", {
@@ -33,59 +27,66 @@ export default function AskAI() {
 
       const data = await res.json();
 
+      let botReply = "";
       if (Array.isArray(data) && data.length > 0) {
-        setComponents(data);
+        botReply = data.join(", ");
       } else {
-        setComponents([]);
+        botReply = "No response.";
       }
+
+      // Add AI response
+      setMessages((prev) => [...prev, { role: "ai", text: botReply }]);
     } catch (error) {
-      console.log(error);
-      setComponents([]);
+      console.error(error);
+      setMessages((prev) => [...prev, { role: "ai", text: "Error fetching response." }]);
     } finally {
       setLoading(false);
     }
   }
 
-  function tryAgain() {
-    setPrompt("");
-    setComponents([]);
-    setPromptEntered(false);
-    setLoading(false);
-  }
+  // Auto scroll down when messages update
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, loading]);
 
   return (
     <>
       <Header />
       <main className="chat-main">
-        {!promptEntered ? (
-          <div className="prompt-container">
-            <form onSubmit={getResponse} className="prompt-form">
-              <textarea
-                placeholder="Enter prompt"
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-              />
-              <button type="submit">Build PC</button>
-            </form>
-          </div>
-        ) : loading ? (
-          <div className="loading-container">
-            <p>Loading...</p>
-            <button onClick={tryAgain}>Ask Again</button>
-          </div>
-        ) : (
-          <div className="response-container">
-            <div className="component-names">
-              {components.length > 0 ? (
-                <p>{components.join(", ")}</p>
-              ) : (
-                <p className="no-products">No response</p>
-              )}
-              </div>
-              <button onClick={tryAgain}>Ask Again</button>
-            
-          </div>
-        )}
+        <div className="chat-container">
+          {messages.map((msg, idx) => (
+            <div
+              key={idx}
+              className={`chat-message ${msg.role === "user" ? "user-msg" : "ai-msg"}`}
+            >
+              {msg.text}
+            </div>
+          ))}
+
+          {/* Typing indicator */}
+          {loading && (
+            <div className="chat-message ai-msg typing">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+            </div>
+          )}
+
+          <div ref={chatEndRef} />
+        </div>
+
+        {/* Input */}
+        <form onSubmit={getResponse} className="chat-input-form">
+          <textarea
+            placeholder="Type your message..."
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            rows={2}
+          />
+          <button type="submit" disabled={loading}>
+            Send
+          </button>
+        </form>
       </main>
 
       <footer className="chat-footer">
